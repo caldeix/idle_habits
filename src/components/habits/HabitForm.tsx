@@ -7,8 +7,10 @@ import type { FormEvent } from 'react';
 import type {
   Habit,
   HabitFrequency,
+  HabitDifficultyId,
   Weekday,
 } from '../../features/habits/domain/habit.types';
+import { DIFFICULTIES } from '../../features/habits/domain/difficulty.config';
 
 // Definimos las props que recibe el formulario
 // onSubmit es una función que recibirá un Habit ya construido
@@ -37,6 +39,9 @@ export function HabitForm({ onSubmit }: HabitFormProps) {
   const [selectedDays, setSelectedDays] = useState<Weekday[]>([]);
   // Estado local para el día del mes (solo para hábitos mensuales)
   const [dayOfMonth, setDayOfMonth] = useState<number | undefined>();
+  // Estado local para la dificultad seleccionada
+  const [difficultyId, setDifficultyId] =
+    useState<HabitDifficultyId>('easy');
 
   // Función para marcar o desmarcar un día de la semana en la lista de seleccionados
   const toggleWeekday = (day: Weekday) => {
@@ -63,6 +68,9 @@ export function HabitForm({ onSubmit }: HabitFormProps) {
       name: trimmedName,
       createdAt: new Date().toISOString(),
       frequency,
+      difficultyId,
+      xpReward: DIFFICULTIES[difficultyId].xpReward,
+      coinReward: DIFFICULTIES[difficultyId].coinReward,
     };
 
     // Construimos el hábito concreto según el tipo de frecuencia seleccionado
@@ -94,6 +102,7 @@ export function HabitForm({ onSubmit }: HabitFormProps) {
     setSelectedDays([]);
     setDayOfMonth(undefined);
     setFrequency('daily');
+    setDifficultyId('easy');
   };
 
   return (
@@ -104,6 +113,20 @@ export function HabitForm({ onSubmit }: HabitFormProps) {
         value={name}
         onChange={(event) => setName(event.target.value)}
       />
+
+      {/* Selector para elegir la dificultad del hábito */}
+      <select
+        value={difficultyId}
+        onChange={(event) =>
+          setDifficultyId(event.target.value as HabitDifficultyId)
+        }
+      >
+        {Object.values(DIFFICULTIES).map((difficulty) => (
+          <option key={difficulty.id} value={difficulty.id}>
+            {difficulty.label}
+          </option>
+        ))}
+      </select>
 
       {/* Selector para elegir la frecuencia del hábito */}
       <select

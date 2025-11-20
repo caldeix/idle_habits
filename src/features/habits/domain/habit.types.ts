@@ -4,6 +4,14 @@
 // Tipo para la frecuencia de un hábito: diario, semanal o mensual
 export type HabitFrequency = 'daily' | 'weekly' | 'monthly';
 
+// Identificadores internos de dificultad de un hábito
+export type HabitDifficultyId =
+  | 'easy'
+  | 'easy-medium'
+  | 'medium'
+  | 'medium-hard'
+  | 'hard';
+
 // Días de la semana. Usamos string literal types para tener autocompletado y evitar errores de texto
 export type Weekday =
   | 'monday'
@@ -28,6 +36,11 @@ export interface BaseHabit {
   frequency: HabitFrequency;
   // fecha de creación guardada como string ISO (ej: "2025-11-20T...Z")
   createdAt: string;
+  // dificultad asociada al hábito (controla la recompensa base de XP y monedas)
+  difficultyId: HabitDifficultyId;
+  // Recompensa concreta de este hábito al completarse (puede ajustarse por hábito)
+  xpReward: number;
+  coinReward: number;
 }
 
 // Hábito diario: se hace todos los días

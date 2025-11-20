@@ -7,6 +7,9 @@
 import { useEffect, useState } from 'react';
 import type { DailyHabit, Habit, HabitId, HabitState } from '../domain/habit.types';
 import { loadHabitState, saveHabitState } from '../storage/habit.storage';
+import { loadPlayerState, savePlayerState } from '../storage/player.storage';
+import { DIFFICULTIES } from '../domain/difficulty.config';
+import { addRewardsToPlayer } from '../domain/player.utils';
 import {
   addHabit,
   completeHabit,
@@ -68,11 +71,57 @@ export const useHabits = (): UseHabitsResult => {
 
   // Marca un hábito como completado
   const markCompleted = (id: HabitId) => {
+    // Antes de mover el hábito a completado, buscamos cuál es para poder
+    // calcular la recompensa de XP y monedas según su dificultad.
+    const habitToComplete = state.incompleted.find((habit) => habit.id === id);
+
+    if (habitToComplete) {
+      // Preferimos usar la recompensa guardada en el propio hábito; si no existe,
+      // hacemos fallback a la configuración de dificultad para mantener compatibilidad.
+      const difficulty = DIFFICULTIES[habitToComplete.difficultyId];
+      const xpReward =
+        (habitToComplete as any).xpReward ?? difficulty.xpReward;
+      const coinReward =
+        (habitToComplete as any).coinReward ?? difficulty.coinReward;
+
+      const currentPlayer = loadPlayerState();
+      const updatedPlayer = addRewardsToPlayer(
+        currentPlayer,
+        xpReward,
+        coinReward,
+      );
+      savePlayerState(updatedPlayer);
+    }
+
     setState((prevState) => completeHabit(prevState, id));
   };
 
   // Marca un hábito como incompleto
   const markIncompleted = (id: HabitId) => {
+    // Buscamos el hábito en la lista de completados para revertir la recompensa
+    const habitToRevert = state.completed.find((habit) => habit.id === id);
+
+    if (habitToRevert) {
+      const difficulty = DIFFICULTIES[habitToRevert.difficultyId];
+      const xpReward =
+        (habitToRevert as any).xpReward ?? difficulty.xpReward;
+      const coinReward =
+        (habitToRevert as any).coinReward ?? difficulty.coinReward;
+
+      const currentPlayer = loadPlayerState();
+      const updatedPlayer = addRewardsToPlayer(
+        currentPlayer,
+        -xpReward,
+        -coinReward,
+      );
+
+      // Evitamos que XP o monedas queden en negativo
+      savePlayerState({
+        totalXp: Math.max(0, updatedPlayer.totalXp),
+        totalCoins: Math.max(0, updatedPlayer.totalCoins),
+      });
+    }
+
     setState((prevState) => uncompleteHabit(prevState, id));
   };
 
