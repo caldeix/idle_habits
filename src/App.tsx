@@ -1,16 +1,43 @@
-import './App.css';
-// Importamos la página de pruebas de hábitos que hemos creado en src/pages
-import { HabitsTestPage } from './pages/HabitsTestPage';
+import { useEffect } from 'react';
+import './styles/retro-theme.css';
+import { HabitsMainPage } from './pages/HabitsMainPage';
 import { PlayerSettingsPanel } from './components/player/PlayerSettingsPanel';
+import './App.css';
+// Load the retro font
+const loadRetroFont = () => {
+  const link = document.createElement('link');
+  link.href = 'https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap';
+  link.rel = 'stylesheet';
+  document.head.appendChild(link);
+
+  // Add pixelated rendering for better retro look
+  const style = document.createElement('style');
+  style.textContent = `
+    * {
+      image-rendering: -moz-crisp-edges;
+      image-rendering: pixelated;
+    }
+  `;
+  document.head.appendChild(style);
+};
 
 function App() {
-  // De momento la app principal solo muestra la página de test de hábitos
-  // Más adelante podrás sustituir esto por tu layout definitivo con header, módulos, etc.
+  useEffect(() => {
+    loadRetroFont();
+    // Add class to body for global styles
+    document.body.classList.add('retro-app');
+
+    return () => {
+      document.body.classList.remove('retro-app');
+    };
+  }, []);
+
   return (
-    <>
-      <HabitsTestPage />
-      <PlayerSettingsPanel />
-    </>
+    <div className="retro-app-container" >
+      <div className='player-panel'><PlayerSettingsPanel /></div>
+      <HabitsMainPage />
+
+    </div>
   );
 }
 

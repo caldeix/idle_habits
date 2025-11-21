@@ -4,6 +4,7 @@
 
 import { useState } from 'react';
 import type { FormEvent } from 'react';
+import './HabitForm.css';
 import type {
   Habit,
   HabitFrequency,
@@ -106,74 +107,96 @@ export function HabitForm({ onSubmit }: HabitFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {/* Campo de texto para el nombre del hábito */}
-      <input
-        placeholder="Nombre del hábito"
-        value={name}
-        onChange={(event) => setName(event.target.value)}
-      />
+    <form onSubmit={handleSubmit} className="habit-form">
+      <h2 className="form-title">Nuevo Hábito</h2>
 
-      {/* Selector para elegir la dificultad del hábito */}
-      <select
-        value={difficultyId}
-        onChange={(event) =>
-          setDifficultyId(event.target.value as HabitDifficultyId)
-        }
-      >
-        {Object.values(DIFFICULTIES).map((difficulty) => (
-          <option key={difficulty.id} value={difficulty.id}>
-            {difficulty.label}
-          </option>
-        ))}
-      </select>
+      <div className="form-group">
+        <label htmlFor="habit-name" className="form-label">
+          Nombre del hábito
+        </label>
+        <input
+          id="habit-name"
+          type="text"
+          className="form-input"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Ej: Hacer ejercicio"
+          required
+          style={{ padding: "0.75rem 0" }}
+        />
+      </div>
 
-      {/* Selector para elegir la frecuencia del hábito */}
-      <select
-        value={frequency}
-        onChange={(event) =>
-          setFrequency(event.target.value as HabitFrequency)
-        }
-      >
-        <option value="daily">Diario</option>
-        <option value="weekly">Semanal</option>
-        <option value="monthly">Mensual</option>
-      </select>
-
-      {/* Lista de checkboxes solo visible cuando el hábito es semanal */}
-      {frequency === 'weekly' && (
-        <div>
-          {weekdays.map((day) => (
-            <label key={day}>
-              <input
-                type="checkbox"
-                checked={selectedDays.includes(day)}
-                onChange={() => toggleWeekday(day)}
-              />
-              {day}
-            </label>
+      <div className="form-group">
+        <label className="form-label">Dificultad</label>
+        <select
+          className="form-select"
+          value={difficultyId}
+          onChange={(event) =>
+            setDifficultyId(event.target.value as HabitDifficultyId)
+          }
+        >
+          {Object.values(DIFFICULTIES).map((difficulty) => (
+            <option key={difficulty.id} value={difficulty.id}>
+              {difficulty.label}
+            </option>
           ))}
+        </select>
+      </div>
+
+      <div className="form-group">
+        <label className="form-label">Frecuencia</label>
+        <select
+          className="form-select"
+          value={frequency}
+          onChange={(e) => setFrequency(e.target.value as HabitFrequency)}
+        >
+          <option value="daily">Diario</option>
+          <option value="weekly">Semanal</option>
+          <option value="monthly">Mensual</option>
+        </select>
+      </div>
+
+      {frequency === 'weekly' && (
+        <div className="form-group">
+          <label className="form-label">Días de la semana</label>
+          <div className="weekdays-container">
+            {weekdays.map((day) => (
+              <label key={day} className="weekday-label">
+                <input
+                  type="checkbox"
+                  id={`day-${day}`}
+                  className="weekday-checkbox"
+                  checked={selectedDays.includes(day)}
+                  onChange={() => toggleWeekday(day)}
+                />
+                {day.charAt(0).toUpperCase() + day.slice(1)}
+              </label>
+            ))}
+          </div>
         </div>
       )}
 
-      {/* Campo numérico solo visible cuando el hábito es mensual */}
       {frequency === 'monthly' && (
-        <input
-          type="number"
-          min={1}
-          max={31}
-          value={dayOfMonth ?? ''}
-          onChange={(event) =>
-            setDayOfMonth(
-              event.target.value ? Number(event.target.value) : undefined
-            )
-          }
-          placeholder="Día del mes (1-31)"
-        />
+        <div className="form-group">
+          <label htmlFor="day-of-month" className="form-label">
+            Día del mes (1-31)
+          </label>
+          <input
+            id="day-of-month"
+            type="number"
+            min="1"
+            max="31"
+            className="form-input"
+            value={dayOfMonth || ''}
+            onChange={(e) => setDayOfMonth(Number(e.target.value) || undefined)}
+          />
+        </div>
       )}
 
       {/* Botón para enviar el formulario y crear el hábito */}
-      <button type="submit">Crear hábito</button>
+      <button type="submit" className="submit-button">
+        Crear hábito
+      </button>
     </form>
   );
 }

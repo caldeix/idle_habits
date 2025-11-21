@@ -3,6 +3,7 @@
 
 import type { Habit } from '../../features/habits/domain/habit.types';
 import { HabitItem } from './HabitItem';
+import './HabitList.css';
 
 // Props que necesita la lista de hábitos
 interface HabitListProps {
@@ -32,23 +33,30 @@ export function HabitList({
   if (!habits.length) return null;
 
   return (
-    <section>
-      {/* Título de la sección */}
-      <h2>{title}</h2>
-
-      {/* Lista desordenada de elementos HabitItem */}
-      <ul>
-        {habits.map((habit) => (
-          <HabitItem
-            key={habit.id}
-            habit={habit}
-            onEdit={onEdit}
-            onDelete={onDelete}
-            onToggleComplete={onToggleComplete}
-            isCompleted={isCompleted}
-          />
-        ))}
-      </ul>
-    </section>
+    <div className="habits-container">
+      <h2 className="habits-title">{title}</h2>
+      
+      <table className="habits-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Dificultad</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {habits.map((habit) => (
+            <HabitItem
+              key={habit.id}
+              habit={habit}
+              onEdit={onEdit}
+              onDelete={onDelete}
+              onToggleComplete={onToggleComplete}
+              isCompleted={isCompleted}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

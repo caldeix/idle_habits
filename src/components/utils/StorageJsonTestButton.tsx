@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import './StorageJsonTestButton.css';
 
 export type StorageJsonButtonMode = 'export' | 'import' | 'deleteall';
 
@@ -79,32 +80,48 @@ export function StorageJsonTestButton({ mode }: StorageJsonTestButtonProps) {
 
   if (mode === 'deleteall') {
     return (
-      <button type="button" onClick={handleDeleteAll}>
-        Borrar todo
-      </button>
+      <div className="storage-buttons-container">
+        <button 
+          type="button" 
+          className="storage-button delete"
+          onClick={handleDeleteAll}
+        >
+          🗑️ Borrar todo
+        </button>
+      </div>
     );
   }
 
   if (mode === 'export') {
     return (
-      <button type="button" onClick={handleExport}>
-        Exportar backup JSON (settings, player, habits)
-      </button>
+      <div className="storage-buttons-container">
+        <button 
+          type="button" 
+          className="storage-button export"
+          onClick={handleExport}
+        >
+          💾 Exportar backup
+        </button>
+      </div>
     );
   }
 
   return (
-    <>
-      <button type="button" onClick={handleImportClick}>
-        Importar backup JSON (settings, player, habits)
+    <div className="storage-buttons-container">
+      <button 
+        type="button" 
+        className="storage-button import"
+        onClick={handleImportClick}
+      >
+        📤 Importar backup
       </button>
       <input
-        ref={fileInputRef}
         type="file"
-        accept="application/json"
-        style={{ display: 'none' }}
+        ref={fileInputRef}
+        className="hidden-file-input"
         onChange={handleImportFileChange}
+        accept=".json"
       />
-    </>
+    </div>
   );
 }

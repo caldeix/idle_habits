@@ -7,7 +7,7 @@ import { StorageJsonTestButton } from '../components/utils/StorageJsonTestButton
 import type { Habit } from '../features/habits/domain/habit.types';
 import { useHabits } from '../features/habits/logic/useHabits';
 
-export function HabitsTestPage() {
+export function HabitsMainPage() {
   // Obtenemos del hook useHabits:
   // - las listas filtradas de hábitos que tocan hoy (incompletos y completados)
   // - las funciones para crear, editar, eliminar y cambiar el estado de los hábitos
@@ -33,13 +33,10 @@ export function HabitsTestPage() {
   };
 
   return (
-    <div>
-      {/* Título de la página de pruebas */}
-      <h1>Test de Hábitos</h1>
-
-      <StorageJsonTestButton mode="deleteall" />
+    <div className="habits">
+      {/*<StorageJsonTestButton mode="deleteall" />
       <StorageJsonTestButton mode="export" />
-      <StorageJsonTestButton mode="import" />
+      <StorageJsonTestButton mode="import" />*/}
 
       {/* Formulario de prueba para crear nuevos hábitos */}
       <HabitForm onSubmit={handleCreate} />
