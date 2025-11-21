@@ -4,3 +4,9 @@ export interface PlayerState {
   totalXp: number;
   totalCoins: number;
 }
+
+export interface PlayerLevelInfo {
+  level: number;
+  xpInCurrentLevel: number;
+  xpToNextLevel: number;
+}

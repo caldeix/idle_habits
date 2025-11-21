@@ -1,40 +1,18 @@
-import { useState, useEffect } from 'react';
-import { loadPlayerState } from '../../features/habits/storage/player.storage';
-import { calculatePlayerLevel } from '../../features/habits/domain/player.utils';
-import type { PlayerState } from '../../features/habits/domain/player.types';
-import { loadSettings, saveSettings } from '../../features/habits/storage/settings.storage';
-import type { SettingsState } from '../../features/habits/domain/settings.types';
-import { onPlayerUpdated } from '../../features/habits/events/player.events';
+import { useState } from 'react';
+import { loadSettings, saveSettings } from '../../features/player/storage/settings.storage';
+import type { SettingsState } from '../../features/player/domain/settings.types';
 import { FiEdit2, FiCheck, FiX } from 'react-icons/fi';
 import { FaCoins } from 'react-icons/fa';
+import { usePlayer } from '../../features/player/context/PlayerContext';
 import './PlayerSettingsPanel.css';
 
 
 
 export function PlayerSettingsPanel() {
-  const [player, setPlayer] = useState<PlayerState>(() => loadPlayerState());
+  const { player, levelInfo } = usePlayer();
   const [settings, setSettings] = useState<SettingsState>(() => loadSettings());
   const [isEditing, setIsEditing] = useState(false);
   const [tempName, setTempName] = useState('');
-
-  // Efecto para suscribirse a los cambios del jugador
-  useEffect(() => {
-    // Función para actualizar el estado del jugador
-    const updatePlayerState = () => {
-      setPlayer(loadPlayerState());
-    };
-
-    // Suscribirse al evento de actualización del jugador
-    const unsubscribe = onPlayerUpdated(updatePlayerState);
-
-    // Cargar el estado inicial
-    updatePlayerState();
-
-    // Limpiar la suscripción al desmontar el componente
-    return () => {
-      unsubscribe();
-    };
-  }, []);
 
   const handleStartEditing = () => {
     setTempName(settings.playerName);
@@ -58,8 +36,6 @@ export function PlayerSettingsPanel() {
   const handleCancelEditing = () => {
     setIsEditing(false);
   };
-
-  const levelInfo = calculatePlayerLevel(player.totalXp);
 
   // Calcular el progreso del nivel en porcentaje
   const levelProgress = (levelInfo.xpInCurrentLevel / levelInfo.xpToNextLevel) * 100;

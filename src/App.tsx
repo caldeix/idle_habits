@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import './styles/retro-theme.css';
 import { HabitsMainPage } from './pages/HabitsMainPage';
 import { PlayerSettingsPanel } from './components/player/PlayerSettingsPanel';
+import { PlayerProvider } from './features/player/context/PlayerContext';
 import './App.css';
 // Load the retro font
 const loadRetroFont = () => {
@@ -33,11 +34,14 @@ function App() {
   }, []);
 
   return (
-    <div className="retro-app-container" >
-      <div className='player-panel'><PlayerSettingsPanel /></div>
-      <HabitsMainPage />
-
-    </div>
+    <PlayerProvider>
+      <div className="retro-app-container">
+        <div className='player-panel'>
+          <PlayerSettingsPanel />
+        </div>
+        <HabitsMainPage />
+      </div>
+    </PlayerProvider>
   );
 }
 

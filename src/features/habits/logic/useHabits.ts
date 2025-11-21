@@ -7,10 +7,8 @@
 import { useEffect, useState } from 'react';
 import type { DailyHabit, Habit, HabitId, HabitState } from '../domain/habit.types';
 import { loadHabitState, saveHabitState } from '../storage/habit.storage';
-import { loadPlayerState, savePlayerState } from '../storage/player.storage';
 import { DIFFICULTIES } from '../domain/difficulty.config';
-import { addRewardsToPlayer } from '../domain/player.utils';
-import { dispatchPlayerUpdated } from '../events/player.events';
+import { usePlayer } from '../../player/context/PlayerContext';
 import {
   addHabit,
   completeHabit,
@@ -44,6 +42,9 @@ export const useHabits = (): UseHabitsResult => {
   useEffect(() => {
     saveHabitState(state);
   }, [state]);
+
+  // Get player context
+  const { addRewards } = usePlayer();
 
   // Crea un nuevo hábito y lo añade al estado usando el servicio addHabit
   const createHabit = (habit: Habit) => {
@@ -85,16 +86,8 @@ export const useHabits = (): UseHabitsResult => {
       const coinReward =
         (habitToComplete as any).coinReward ?? difficulty.coinReward;
 
-      const currentPlayer = loadPlayerState();
-      const updatedPlayer = addRewardsToPlayer(
-        currentPlayer,
-        xpReward,
-        coinReward,
-      );
-      savePlayerState(updatedPlayer);
-      
-      // Notificar a los componentes que el jugador ha sido actualizado
-      dispatchPlayerUpdated();
+      // Añadir recompensas usando el contexto del jugador
+      addRewards(xpReward, coinReward);
 
       // Actualizar el estado local
       setState((prevState) => completeHabit(prevState, id));
@@ -113,21 +106,9 @@ export const useHabits = (): UseHabitsResult => {
       const coinReward =
         (habitToRevert as any).coinReward ?? difficulty.coinReward;
 
-      const currentPlayer = loadPlayerState();
-      const updatedPlayer = addRewardsToPlayer(
-        currentPlayer,
-        -xpReward,
-        -coinReward,
-      );
-
-      // Evitamos que XP o monedas queden en negativo
-      savePlayerState({
-        totalXp: Math.max(0, updatedPlayer.totalXp),
-        totalCoins: Math.max(0, updatedPlayer.totalCoins),
-      });
-
-      // Notificar a los componentes que el jugador ha sido actualizado
-      dispatchPlayerUpdated();
+      // Restar recompensas usando el contexto del jugador
+      // El contexto ya se encarga de no dejar valores negativos
+      addRewards(-xpReward, -coinReward);
     }
 
     setState((prevState) => uncompleteHabit(prevState, id));

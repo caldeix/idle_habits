@@ -1,12 +1,6 @@
 // Utilidades puras para trabajar con el estado del jugador
 
-import type { PlayerState } from './player.types';
-
-export interface PlayerLevelInfo {
-  level: number;
-  xpInCurrentLevel: number;
-  xpToNextLevel: number;
-}
+import type { PlayerState, PlayerLevelInfo } from './player.types';
 
 // Calcula el nivel del jugador y el progreso dentro del nivel actual
 // Regla: nivel 0 -> 1000 XP para subir; nivel 1 -> 1100; nivel 2 -> 1200; etc.
