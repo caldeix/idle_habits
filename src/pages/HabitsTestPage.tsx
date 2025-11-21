@@ -3,6 +3,7 @@
 
 import { HabitForm } from '../components/habits/HabitForm';
 import { HabitList } from '../components/habits/HabitList';
+import { StorageJsonTestButton } from '../components/utils/StorageJsonTestButton';
 import type { Habit } from '../features/habits/domain/habit.types';
 import { useHabits } from '../features/habits/logic/useHabits';
 
@@ -35,6 +36,10 @@ export function HabitsTestPage() {
     <div>
       {/* Título de la página de pruebas */}
       <h1>Test de Hábitos</h1>
+
+      <StorageJsonTestButton mode="deleteall" />
+      <StorageJsonTestButton mode="export" />
+      <StorageJsonTestButton mode="import" />
 
       {/* Formulario de prueba para crear nuevos hábitos */}
       <HabitForm onSubmit={handleCreate} />

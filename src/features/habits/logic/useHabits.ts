@@ -10,6 +10,7 @@ import { loadHabitState, saveHabitState } from '../storage/habit.storage';
 import { loadPlayerState, savePlayerState } from '../storage/player.storage';
 import { DIFFICULTIES } from '../domain/difficulty.config';
 import { addRewardsToPlayer } from '../domain/player.utils';
+import { dispatchPlayerUpdated } from '../events/player.events';
 import {
   addHabit,
   completeHabit,
@@ -91,9 +92,13 @@ export const useHabits = (): UseHabitsResult => {
         coinReward,
       );
       savePlayerState(updatedPlayer);
-    }
+      
+      // Notificar a los componentes que el jugador ha sido actualizado
+      dispatchPlayerUpdated();
 
-    setState((prevState) => completeHabit(prevState, id));
+      // Actualizar el estado local
+      setState((prevState) => completeHabit(prevState, id));
+    }
   };
 
   // Marca un hábito como incompleto
@@ -120,6 +125,9 @@ export const useHabits = (): UseHabitsResult => {
         totalXp: Math.max(0, updatedPlayer.totalXp),
         totalCoins: Math.max(0, updatedPlayer.totalCoins),
       });
+
+      // Notificar a los componentes que el jugador ha sido actualizado
+      dispatchPlayerUpdated();
     }
 
     setState((prevState) => uncompleteHabit(prevState, id));

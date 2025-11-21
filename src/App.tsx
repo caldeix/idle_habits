@@ -1,7 +1,7 @@
 import './App.css';
 // Importamos la página de pruebas de hábitos que hemos creado en src/pages
 import { HabitsTestPage } from './pages/HabitsTestPage';
-import { PlayerTestPanel } from './components/player/PlayerTestPanel';
+import { PlayerSettingsPanel } from './components/player/PlayerSettingsPanel';
 
 function App() {
   // De momento la app principal solo muestra la página de test de hábitos
@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <HabitsTestPage />
-      <PlayerTestPanel />
+      <PlayerSettingsPanel />
     </>
   );
 }
