@@ -65,6 +65,18 @@
   pointer-events: none;
 }
 
+.name-edit-container {
+  position: relative;
+  text-align: center;
+}
+
+.name-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
 .player-name {
   font-size: 1.2rem;
   margin: 0.5rem 0;
@@ -72,6 +84,76 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   text-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+  transition: all 0.2s;
+}
+
+.edit-name-container {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem 0;
+}
+
+.name-edit-input {
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--retro-primary);
+  color: var(--retro-text);
+  padding: 0.3rem 0.5rem;
+  font-family: var(--retro-font);
+  font-size: 1.1rem;
+  max-width: 180px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.name-edit-input:focus {
+  outline: none;
+  border-color: var(--retro-accent);
+  box-shadow: 0 0 5px rgba(46, 204, 113, 0.5);
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  color: var(--retro-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+  font-size: 1.1rem;
+}
+
+.icon-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.edit-button {
+  color: var(--retro-primary);
+}
+
+.edit-button:hover {
+  color: var(--retro-accent);
+}
+
+.confirm-button {
+  color: #2ecc71;
+}
+
+.confirm-button:hover {
+  color: #27ae60;
+}
+
+.cancel-button {
+  color: #e74c3c;
+}
+
+.cancel-button:hover {
+  color: #c0392b;
 }
 
 .player-level {
@@ -90,7 +172,9 @@
   background: rgba(15, 15, 31, 0.8);
   box-shadow: 4px 4px 0 var(--retro-secondary);
 }
-
+.stats-container{
+  text-align:center;
+}
 .stat-row {
   display: flex;
   justify-content: space-between;
@@ -163,19 +247,48 @@
   }
 }
 
-.coin-display {
+.coins-display {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
   margin: 1rem 0;
   font-size: 1.2rem;
   font-weight: bold;
   color: var(--retro-accent);
   text-shadow: 1px 1px 0 var(--retro-secondary);
   background: rgba(0, 0, 0, 0.3);
-  padding: 8px;
-  border: 2px dashed var(--retro-accent);
-  position: relative;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--retro-primary);
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.coins-display:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.coins-icon {
+  color: #ffd700;
+  filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.7));
+  font-size: 1.3em;
+  animation: coinPulse 2s infinite ease-in-out;
+}
+
+.coins-amount {
+  min-width: 1.5em;
+  text-align: center;
+  font-family: var(--retro-font);
+  text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+  letter-spacing: 1px;
+}
+
+@keyframes coinPulse {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.1) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); }
 }
 
 .coin-icon {

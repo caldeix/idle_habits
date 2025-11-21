@@ -73,24 +73,24 @@ export function HabitItem({
           )}
 
           {/* Botón para editar el hábito */}
-          <button 
+           {isCompleted === false && (<button 
             type="button" 
             onClick={() => onEdit(habit)}
             className="action-button edit"
             title="Editar hábito"
           >
             ✏️
-          </button>
+          </button>)}
 
           {/* Botón para eliminar el hábito */}
-          <button 
+          {isCompleted === false && (<button 
             type="button" 
             onClick={() => onDelete(habit.id)}
             className="action-button delete"
             title="Eliminar hábito"
           >
             🗑️
-          </button>
+          </button>)}
         </div>
       </td>
     </tr>

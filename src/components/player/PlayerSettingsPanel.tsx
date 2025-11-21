@@ -5,6 +5,8 @@ import type { PlayerState } from '../../features/habits/domain/player.types';
 import { loadSettings, saveSettings } from '../../features/habits/storage/settings.storage';
 import type { SettingsState } from '../../features/habits/domain/settings.types';
 import { onPlayerUpdated } from '../../features/habits/events/player.events';
+import { FiEdit2, FiCheck, FiX } from 'react-icons/fi';
+import { FaCoins } from 'react-icons/fa';
 import './PlayerSettingsPanel.css';
 
 
@@ -12,9 +14,8 @@ import './PlayerSettingsPanel.css';
 export function PlayerSettingsPanel() {
   const [player, setPlayer] = useState<PlayerState>(() => loadPlayerState());
   const [settings, setSettings] = useState<SettingsState>(() => loadSettings());
-  const [playerNameInput, setPlayerNameInput] = useState<string>(
-    () => loadSettings().playerName,
-  );
+  const [isEditing, setIsEditing] = useState(false);
+  const [tempName, setTempName] = useState('');
 
   // Efecto para suscribirse a los cambios del jugador
   useEffect(() => {
@@ -35,8 +36,13 @@ export function PlayerSettingsPanel() {
     };
   }, []);
 
+  const handleStartEditing = () => {
+    setTempName(settings.playerName);
+    setIsEditing(true);
+  };
+
   const handleSavePlayerName = () => {
-    const trimmed = playerNameInput.trim();
+    const trimmed = tempName.trim();
     if (!trimmed) return;
 
     const updated: SettingsState = {
@@ -46,6 +52,11 @@ export function PlayerSettingsPanel() {
 
     saveSettings(updated);
     setSettings(updated);
+    setIsEditing(false);
+  };
+
+  const handleCancelEditing = () => {
+    setIsEditing(false);
   };
 
   const levelInfo = calculatePlayerLevel(player.totalXp);
@@ -60,14 +71,51 @@ export function PlayerSettingsPanel() {
         <div className="player-avatar" title={`Nivel ${levelInfo.level}`}>
           {playerInitial}
         </div>
-        <h2 className="player-name">{settings.playerName || 'Jugador'}</h2>
-        <div className="level-display">Nivel {levelInfo.level}</div>
+        <div className="name-edit-container">
+          {isEditing ? (
+            <div className="edit-name-container">
+              <input
+                type="text"
+                className="name-edit-input"
+                value={tempName}
+                onChange={(e) => setTempName(e.target.value)}
+                autoFocus
+              />
+              <button 
+                className="icon-button confirm-button" 
+                onClick={handleSavePlayerName}
+                title="Guardar cambios"
+              >
+                <FiCheck />
+              </button>
+              <button 
+                className="icon-button cancel-button"
+                onClick={handleCancelEditing}
+                title="Cancelar"
+              >
+                <FiX />
+              </button>
+            </div>
+          ) : (
+            <div className="name-display">
+              <h2 className="player-name">{settings.playerName || 'Jugador'}</h2>
+              <button 
+                className="icon-button edit-button" 
+                onClick={handleStartEditing}
+                title="Editar nombre"
+              >
+                <FiEdit2 />
+              </button>
+            </div>
+          )}
+          <div className="level-display">Nivel {levelInfo.level}</div>
+        </div>
       </div>
 
       <div className="stats-container">
         <div className="stat-item">
           <div className="stat-label">
-            <span>Experiencia</span>
+            <span></span>
             <span>{levelInfo.xpInCurrentLevel} / {levelInfo.xpToNextLevel} XP</span>
           </div>
           <div className="progress-bar">
@@ -79,44 +127,11 @@ export function PlayerSettingsPanel() {
         </div>
 
         <div className="coins-display">
-          {player.totalCoins} monedas
+          <FaCoins className="coins-icon" />
+          <span className="coins-amount">{player.totalCoins}</span>
         </div>
       </div>
 
-      <div className="player-actions" style={{ marginTop: '1.5rem' }}>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
-          <input
-            type="text"
-            placeholder="Nuevo nombre"
-            value={playerNameInput}
-            onChange={(event) => setPlayerNameInput(event.target.value)}
-            style={{
-              padding: '0.5rem',
-              borderRadius: '5px',
-              border: '1px solid #3498db',
-              background: 'rgba(0,0,0,0.2)',
-              color: '#ecf0f1',
-              flex: 1
-            }}
-          />
-          <button 
-            onClick={handleSavePlayerName}
-            style={{
-              padding: '0.5rem 1rem',
-              background: '#3498db',
-              color: 'white',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-            }}
-            onMouseOver={(e) => e.currentTarget.style.background = '#2980b9'}
-            onMouseOut={(e) => e.currentTarget.style.background = '#3498db'}
-          >
-            Cambiar
-          </button>
-        </div>
-      </div>
     </div>
   );
 }
