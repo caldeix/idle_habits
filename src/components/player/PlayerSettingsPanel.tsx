@@ -5,8 +5,8 @@ import { FiEdit2, FiCheck, FiX } from 'react-icons/fi';
 import { FaCoins } from 'react-icons/fa';
 import { usePlayer } from '../../features/player/context/PlayerContext';
 import './PlayerSettingsPanel.css';
-
-
+import StoreButton from '../../features/store/components/StoreButton';
+import StoreModal from '../../features/store/components/StoreModal';
 
 export function PlayerSettingsPanel() {
   const { player, levelInfo } = usePlayer();
@@ -107,7 +107,7 @@ export function PlayerSettingsPanel() {
           <span className="coins-amount">{player.totalCoins}</span>
         </div>
       </div>
-
+      <StoreButton />
     </div>
   );
 }

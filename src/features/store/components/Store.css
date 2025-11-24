@@ -1,0 +1,18 @@
+.title-actions,
+.store-actions{
+    display: flex;
+    justify-content: space-between;
+}
+.container-items{
+    display: flex;
+    flex-wrap: wrap;
+}
+.container-items .item-store{
+    width:45%;
+    padding:20px;
+}
+
+.statusbar .coins ,
+.statusbar .reset{
+    padding:20px;
+}

@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import './styles/retro-theme.css';
-import { HabitsMainPage } from './pages/HabitsMainPage';
+import { MainPage } from './pages/MainPage';
 import { PlayerSettingsPanel } from './components/player/PlayerSettingsPanel';
 import { PlayerProvider } from './features/player/context/PlayerContext';
 import './App.css';
+import { StoreProvider } from './features/store';
+import { StoreModal } from './features/store/';
 // Load the retro font
 const loadRetroFont = () => {
   const link = document.createElement('link');
@@ -34,13 +36,16 @@ function App() {
   }, []);
 
   return (
-    <PlayerProvider>
-      <div className="retro-app-container">
-        <div className='player-panel'>
-          <PlayerSettingsPanel />
+    <PlayerProvider>  {/* PlayerProvider debe estar primero */}
+      <StoreProvider>  {/* Luego StoreProvider */}
+        <div className="retro-app-container">
+          <div className='player-panel'>
+            <PlayerSettingsPanel />
+          </div>
+          <MainPage />
         </div>
-        <HabitsMainPage />
-      </div>
+       <StoreModal />
+      </StoreProvider>
     </PlayerProvider>
   );
 }
