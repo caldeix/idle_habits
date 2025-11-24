@@ -58,3 +58,15 @@
 .text-xs{
     font-size: 12px;
 }
+.btn-small{
+  
+}
+
+@for $i from 1 through 100 {
+  .pd-#{$i} {
+    padding: #{$i * 1px};
+  }
+  .w-#{$i} {
+    width:#{$i*1%} ;
+  }
+}

@@ -15,31 +15,31 @@ export const DIFFICULTIES: Record<HabitDifficultyId, DifficultyConfig> = {
   'easy': {
     id: 'easy',
     label: 'Muy fácil',
-    xpReward: 25,
+    xpReward: 15,
     coinReward: 5,
   },
   'easy-medium': {
     id: 'easy-medium',
     label: 'Fácil',
-    xpReward: 40,
-    coinReward: 8,
+    xpReward: 30,
+    coinReward: 10,
   },
   'medium': {
     id: 'medium',
     label: 'Normal',
     xpReward: 60,
-    coinReward: 12,
+    coinReward: 15,
   },
   'medium-hard': {
     id: 'medium-hard',
     label: 'Difícil',
-    xpReward: 90,
-    coinReward: 18,
+    xpReward: 125,
+    coinReward: 20,
   },
   'hard': {
     id: 'hard',
     label: 'Muy difícil',
-    xpReward: 130,
+    xpReward: 250,
     coinReward: 25,
   },
 };

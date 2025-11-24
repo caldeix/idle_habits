@@ -6,6 +6,7 @@ import { FaCoins } from 'react-icons/fa';
 import { usePlayer } from '../../features/player/context/PlayerContext';
 import './PlayerSettingsPanel.css';
 import StoreButton from '../../features/store/components/StoreButton';
+import StoreConfigButton from '../../features/store/components/StoreConfigButton';
 
 export function PlayerSettingsPanel() {
   const { player, levelInfo } = usePlayer();
@@ -107,6 +108,7 @@ export function PlayerSettingsPanel() {
         </div>
       </div>
       <StoreButton />
+      <StoreConfigButton />
     </div>
   );
 }

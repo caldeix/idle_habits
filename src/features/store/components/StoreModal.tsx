@@ -97,13 +97,13 @@ const StoreModal = () => {
                                     whileTap={{ scale: 0.98 }}
                                     className="item-store"
                                 >
-                                    <div
+                                    {/*<div
                                         className=""
                                         style={{ color: getRarityColor(item.rarity) }}
                                     >
                                         {item.icon}
-                                    </div>
-                                    <div className='title-actions'><h3 className="">{item.name} </h3> <button
+                                    </div>*/}
+                                    <div className='title-actions'><h3 className=""> {item.icon} {item.name} </h3> <button
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 handlePurchase(item.id, item.price);
@@ -141,10 +141,10 @@ const StoreModal = () => {
                                 initial={{ y: 100, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
                                 exit={{ y: 100, opacity: 0 }}
-                                className={`fixed bottom-4 right-4 p-4 rounded-lg ${purchaseStatus.type === 'success' ? 'bg-green-600' : 'bg-red-600'
-                                    } text-white shadow-lg`}
+                                className={` ${purchaseStatus.type === 'success' ? 'text-green-400' : 'text-red-400'
+                                    } `}
                             >
-                                {purchaseStatus.message}
+                               {purchaseStatus.message}
                             </motion.div>
                         )}
                     </AnimatePresence>

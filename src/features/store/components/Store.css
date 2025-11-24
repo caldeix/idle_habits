@@ -1,18 +1,51 @@
 .title-actions,
-.store-actions{
+.store-actions {
     display: flex;
     justify-content: space-between;
 }
-.container-items{
+
+.container-items,
+.container-configitems {
     display: flex;
     flex-wrap: wrap;
 }
-.container-items .item-store{
-    width:45%;
-    padding:20px;
+
+.container-items .item-store,
+.container-configitems .configitems,
+.container-configitems .configform {
+    width: 45%;
+    padding: 20px;
 }
 
-.statusbar .coins ,
-.statusbar .reset{
-    padding:20px;
+.statusbar .coins,
+.statusbar .reset {
+    padding: 20px;
+}
+
+.container-configitems .configitems {
+    height: 50vh;
+    overflow-y: auto;
+}
+.container-configitems .stocksprice{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.container-configitems .stocksprice .icon,
+.container-configitems .stocksprice div input,
+.container-configitems .configform input,
+.container-configitems .configform textarea{
+    margin-top: 10px;
+}
+
+.notification-config{
+    padding:15px 10px;
+    position:fixed;
+    top:5vh;
+    text-align:center;
+    width:100%;
+    right: 0;
+    left: 0;
+    z-index: 1000;
+
 }

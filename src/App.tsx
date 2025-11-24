@@ -3,9 +3,9 @@ import './styles/retro-theme.css';
 import { MainPage } from './pages/MainPage';
 import { PlayerSettingsPanel } from './components/player/PlayerSettingsPanel';
 import { PlayerProvider } from './features/player/context/PlayerContext';
-import './App.css';
+import './App.scss';
 import { StoreProvider } from './features/store';
-import { StoreModal } from './features/store/';
+import { StoreModal} from './features/store/';
 // Load the retro font
 const loadRetroFont = () => {
   const link = document.createElement('link');

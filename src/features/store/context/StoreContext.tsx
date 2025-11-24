@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { loadStoreState, saveStoreState } from '../storage/store.storage';
 import { purchaseItem as purchaseItemUtil, getNextResetDate } from '../domain/store.utils';
-import type { StoreContextType } from '../domain/store.types';
+import type { StoreContextType, StoreItem } from '../domain/store.types';
 import { usePlayer } from '../../player/context/PlayerContext';
 
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
@@ -64,6 +64,35 @@ const closeStore = useCallback(() => {
   setIsStoreOpen(false);
 }, []);
 
+  const updateStoreItem = useCallback((itemId: string, updatedItem: StoreItem) => {
+    setState(prevState => ({
+      ...prevState,
+      items: prevState.items.map(item => 
+        item.id === itemId ? { ...updatedItem } : item
+      )
+    }));
+  }, []);
+
+  const addStoreItem = useCallback((newItem: StoreItem, cost: number) => {
+    // Deduct coins for creating a new item
+    addRewards(0, -cost);
+    
+    setState(prevState => ({
+      ...prevState,
+      items: [...prevState.items, newItem]
+    }));
+  }, [addRewards]);
+
+  const removeStoreItem = useCallback((itemId: string) => {
+    // Add coins back when deleting an item
+    addRewards(0, 25);
+    
+    setState(prevState => ({
+      ...prevState,
+      items: prevState.items.filter(item => item.id !== itemId)
+    }));
+  }, [addRewards]);
+
   const value = {
     items: state.items,
     purchaseItem,
@@ -72,7 +101,10 @@ const closeStore = useCallback(() => {
     openStore,
     closeStore,
     playerCoins: player.totalCoins,
-    nextResetDate: getNextResetDate()
+    nextResetDate: getNextResetDate(),
+    updateStoreItem,
+    addStoreItem,
+    removeStoreItem
   };
 
   return (

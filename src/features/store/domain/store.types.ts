@@ -36,6 +36,9 @@ export interface StoreContextType {
   closeStore: () => void;
   playerCoins: number;
   nextResetDate: string;
+  updateStoreItem: (itemId: string, updatedItem: StoreItem) => void;
+  addStoreItem: (newItem: StoreItem, cost: number) => void;
+  removeStoreItem: (itemId: string) => void;
 }
 
 export const INITIAL_STORE_STATE: StoreState = {
