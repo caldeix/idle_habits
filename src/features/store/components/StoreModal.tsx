@@ -95,7 +95,6 @@ const StoreModal = () => {
                                     key={item.id}
                                     whileHover={{ scale: 1.03 }}
                                     whileTap={{ scale: 0.98 }}
-                                    onClick={() => setSelectedItem(item)}
                                     className="item-store"
                                 >
                                     <div
