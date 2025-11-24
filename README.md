@@ -1,73 +1,52 @@
-# React + TypeScript + Vite
+# 🎮 Idle Habits - Gestor de Hábitos con Recompensas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Versión](https://img.shields.io/badge/versión-1.0.0-blue.svg)](https://github.com/caldeix/idle_habits)
+[![Estado](https://img.shields.io/badge/estado-en%20desarrollo-yellow)](https://github.com/caldeix/idle_habits)
+[![GitHub stars](https://img.shields.io/github/stars/caldeix/idle_habits?style=social)](https://github.com/caldeix/idle_habits)
 
-Currently, two official plugins are available:
+**Autor:** [caldeix](https://github.com/caldeix)  
+**Fecha de lanzamiento:** Noviembre 2025
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🎯 ¿Qué es Idle Habits?
 
-## React Compiler
+Idle Habits es una aplicación web interactiva que transforma la creación de hábitos en una experiencia de juego. Diseñada para hacer que el desarrollo personal sea más atractivo, la aplicación combina la metodología de seguimiento de hábitos con elementos de gamificación.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Características Principales
 
-## Expanding the ESLint configuration
+### 🎮 Gamificación de Hábitos
+- **Sistema de Niveles**: Sube de nivel al completar hábitos
+- **Recompensas Virtuales**: Gana monedas y experiencia
+- **Logros**: Desbloquea logros por hitos importantes
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 📊 Gestión de Hábitos
+- Creación y seguimiento de hábitos diarios
+- Diferentes niveles de dificultad
+- Recordatorios visuales
+- Estadísticas de progreso
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 🏪 Tienda Virtual
+- Personaliza tu experiencia
+- Desbloquea mejoras visuales
+- Gasta tus monedas ganadas
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🎨 Diseño y Experiencia
+- Interfaz limpia e intuitiva
+- Diseño responsive para todos los dispositivos
+- Animaciones fluidas
+- Tema claro/oscuro
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 💡 ¿Por qué usar Idle Habits?
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Motivación constante**: El sistema de recompensas te mantiene comprometido
+- **Sencillez**: Interfaz fácil de usar sin curvas de aprendizaje pronunciadas
+- **Accesibilidad**: Disponible desde cualquier navegador web
+- **Privacidad**: Tus datos se guardan localmente en tu dispositivo
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🌐 Tecnologías Clave
+- **Frontend**: React 19 + TypeScript
+- **Estilos**: SASS
+- **Animaciones**: Framer Motion
+- **Despliegue**: GitHub Pages
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📝 Nota
+Idle Habits está en desarrollo activo. ¡Tus comentarios son bienvenidos para seguir mejorando la aplicación!

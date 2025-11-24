@@ -1,7 +1,7 @@
 // src/features/store/components/StoreModal.tsx
 import { useEffect, useState } from 'react';
 import { useStore } from '../context/StoreContext';
-import { getRarityColor } from '../domain/store.utils';
+//import { getRarityColor } from '../domain/store.utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiClock } from 'react-icons/fi';
 import './Store.css';
