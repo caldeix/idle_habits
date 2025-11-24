@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { useStore } from '../context/StoreContext';
 import { getRarityColor } from '../domain/store.utils';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiX, FiShoppingCart, FiClock } from 'react-icons/fi';
+import { FiX, FiClock } from 'react-icons/fi';
 import './Store.css';
-import type { StoreItem } from '../domain/store.types';
+
 
 const StoreModal = () => {
     const {
@@ -16,7 +16,7 @@ const StoreModal = () => {
         playerCoins,
         nextResetDate
     } = useStore();
-    const [selectedItem, setSelectedItem] = useState<StoreItem | null>(null);
+
     const [purchaseStatus, setPurchaseStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null);
 
     useEffect(() => {
