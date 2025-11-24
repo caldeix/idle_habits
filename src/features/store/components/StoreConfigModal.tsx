@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useStore } from '../context/StoreContext';
 import { getRarityColor } from '../domain/store.utils';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiX, FiEdit2, FiTrash2, FiPlus } from 'react-icons/fi';
+import { FiX, FiEdit2, FiTrash2 } from 'react-icons/fi';
 import type { StoreItem } from '../domain/store.types';
 import './Store.css';
 
@@ -19,7 +19,7 @@ const DEFAULT_ITEM: Omit<StoreItem, 'id' | 'stock'> = {
   rarity: 'common'
 } as const;
 
-const RARITY_OPTIONS = ['common', 'uncommon', 'rare', 'epic', 'legendary'] as const;
+//const RARITY_OPTIONS = ['common', 'uncommon', 'rare', 'epic', 'legendary'] as const;
 
 const StoreConfigModal = ({ onClose }: StoreConfigModalProps) => {
   const {
