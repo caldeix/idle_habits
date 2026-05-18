@@ -1,51 +1,471 @@
-.title-actions,
-.store-actions {
-    display: flex;
-    justify-content: space-between;
+/* ── Store layout ─────────────────────────────────── */
+.store-panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  position: relative;
 }
 
-.container-items,
-.container-configitems {
-    display: flex;
-    flex-wrap: wrap;
+.store-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
 }
 
-.container-items .item-store,
-.container-configitems .configitems,
-.container-configitems .configform {
-    width: 45%;
-    padding: 20px;
+/* ── Store header ─────────────────────────────────── */
+.store-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-.statusbar .coins,
-.statusbar .reset {
-    padding: 20px;
+.store-header h2 {
+  font-size: 0.85rem;
+  color: var(--primary);
+  margin: 0;
+  letter-spacing: 2px;
 }
 
-.container-configitems .configitems {
-    height: 50vh;
-    overflow-y: auto;
-}
-.container-configitems .stocksprice{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-.container-configitems .stocksprice .icon,
-.container-configitems .stocksprice div input,
-.container-configitems .configform input,
-.container-configitems .configform textarea{
-    margin-top: 10px;
+.store-close-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 0.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+  margin: 0;
 }
 
-.notification-config{
-    padding:15px 10px;
-    position:fixed;
-    top:5vh;
-    text-align:center;
-    width:100%;
-    right: 0;
-    left: 0;
-    z-index: 1000;
+.store-close-btn:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+  background: none;
+  box-shadow: 0 0 8px rgba(255, 51, 51, 0.25);
+}
 
+/* ── Status bar ───────────────────────────────────── */
+.store-statusbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.5rem 1rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.65rem;
+}
+
+.store-statusbar .coins {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+}
+
+.store-statusbar .coins-value {
+  color: var(--primary);
+  font-size: 0.75rem;
+}
+
+.store-statusbar .reset {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-dim);
+}
+
+/* ── Items grid ───────────────────────────────────── */
+.store-items-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.item-store {
+  width: calc(50% - 0.375rem);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.85rem 1rem;
+  transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.item-store:hover {
+  background: var(--card-hover);
+  border-color: rgba(212, 175, 55, 0.25);
+  box-shadow: var(--glow-gold);
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.item-header h3 {
+  font-size: 0.65rem;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.item-desc {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  margin: 0.3rem 0 0.6rem;
+  line-height: 1.5;
+}
+
+.item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.6rem;
+}
+
+.item-price {
+  color: var(--primary);
+}
+
+.item-price .price-unit {
+  color: var(--text-dim);
+  font-size: 0.55rem;
+}
+
+.item-stock-ok  { color: var(--success); }
+.item-stock-out { color: var(--danger); }
+
+.buy-btn {
+  background: var(--primary-dim);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 0.3rem 0.65rem;
+  font-size: 0.6rem;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s, color 0.2s;
+  margin: 0;
+}
+
+.buy-btn:hover:not(:disabled) {
+  background: var(--primary);
+  color: var(--bg);
+  box-shadow: var(--glow-gold);
+}
+
+.buy-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ── Purchase notification ───────────────────────── */
+.notification-config {
+  padding: 12px 16px;
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  text-align: center;
+  font-size: 0.7rem;
+  min-width: 240px;
+  white-space: nowrap;
+}
+
+/* ── Config modal layout ─────────────────────────── */
+.config-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.config-items-list {
+  flex: 1;
+  min-width: 220px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.config-items-list h3 {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.config-item-row {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.6rem;
+}
+
+.config-item-row:last-child {
+  border-bottom: none;
+}
+
+.config-item-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.3rem;
+}
+
+.config-item-name {
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.config-item-stock {
+  color: var(--text-dim);
+}
+
+.config-item-desc {
+  color: var(--text-muted);
+  margin: 0.2rem 0;
+}
+
+.config-item-price {
+  color: var(--primary);
+}
+
+.config-item-actions {
+  display: flex;
+  gap: 0.3rem;
+  margin-top: 0.3rem;
+  justify-content: flex-end;
+}
+
+.btn-small {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 0.2rem 0.4rem;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  font-size: 0.6rem;
+  margin: 0;
+}
+
+.btn-small:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: none;
+  box-shadow: none;
+}
+
+/* ── Config form ─────────────────────────────────── */
+.config-form {
+  flex: 1;
+  min-width: 220px;
+}
+
+.config-form h3 {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.form-field {
+  margin-bottom: 0.85rem;
+}
+
+.form-field label {
+  display: block;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.45rem 0.6rem;
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: var(--glow-gold);
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 56px;
+}
+
+.fields-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.fields-row .form-field {
+  flex: 1;
+}
+
+.form-actions {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-hint {
+  font-size: 0.55rem;
+  color: var(--text-dim);
+}
+
+.btn-primary {
+  background: var(--primary-dim);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 0.5rem 1rem;
+  font-size: 0.65rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background-color 0.2s, box-shadow 0.2s, color 0.2s;
+  margin: 0;
+}
+
+.btn-primary:hover {
+  background: var(--primary);
+  color: var(--bg);
+  box-shadow: var(--glow-gold);
+}
+
+.btn-danger {
+  background: rgba(255, 51, 51, 0.1);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  padding: 0.5rem 1rem;
+  font-size: 0.65rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  margin: 0;
+}
+
+.btn-danger:hover {
+  background: var(--danger);
+  color: var(--bg);
+  box-shadow: 0 0 12px rgba(255, 51, 51, 0.35);
+}
+
+.btn-ghost {
+  background: none;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 0.5rem 1rem;
+  font-size: 0.65rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: border-color 0.2s, color 0.2s;
+  margin: 0;
+}
+
+.btn-ghost:hover {
+  border-color: var(--text-muted);
+  color: var(--text);
+  background: none;
+  box-shadow: none;
+}
+
+.delete-confirm {
+  background: rgba(255, 51, 51, 0.07);
+  border: 1px solid rgba(255, 51, 51, 0.2);
+  padding: 0.65rem 0.75rem;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+}
+
+.delete-confirm p {
+  margin: 0 0 0.6rem;
+  color: var(--danger);
+}
+
+.delete-confirm-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ── Fixed floating buttons ──────────────────────── */
+.store-open-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: var(--primary);
+  color: var(--bg);
+  border: none;
+  padding: 0.85rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--glow-gold), var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+  z-index: 50;
+  margin: 0;
+}
+
+.store-open-btn:hover {
+  transform: scale(1.1);
+  background: var(--primary);
+  color: var(--bg);
+  box-shadow: 0 0 24px rgba(212, 175, 55, 0.55), var(--shadow);
+}
+
+.store-config-btn {
+  position: fixed;
+  bottom: 5.5rem;
+  right: 1.5rem;
+  background: var(--secondary);
+  color: var(--text);
+  border: none;
+  padding: 0.7rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--glow-purple), var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+  z-index: 50;
+  margin: 0;
+}
+
+.store-config-btn:hover {
+  transform: scale(1.1);
+  background: var(--secondary);
+  color: var(--text);
+  box-shadow: 0 0 24px rgba(138, 43, 226, 0.55), var(--shadow);
 }
