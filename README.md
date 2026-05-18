@@ -1,73 +1,86 @@
-# React + TypeScript + Vite
+# IDLE HABITS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> A gamified habit tracker with RPG-style progression, a reward store, and persistent local state.
 
-Currently, two official plugins are available:
+![Version](https://img.shields.io/badge/version-0.1.0-D4AF37?style=flat-square)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-7-646CFF?style=flat-square&logo=vite&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-0055FF?style=flat-square&logo=framer&logoColor=white)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Habit tracking** — daily, weekly, and monthly habits with 5 difficulty tiers
+- **RPG progression** — earn XP and level up by completing habits
+- **Coin rewards** — each habit completion grants coins based on difficulty
+- **Reward store** — spend coins on custom real-life rewards (e.g. movie night, day off)
+- **Store management** — create, edit, and delete your own rewards via the config panel
+- **Monthly stock resets** — store stock resets automatically on the 1st of each month
+- **Persistent state** — all data saved to `localStorage`; no backend required
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![Sass](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Architecture
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── features/
+│   ├── habits/          # Habit domain, logic, storage, hook
+│   ├── player/          # Player state, level calculation, context
+│   └── store/           # Reward store domain, context, components
+├── components/
+│   ├── habits/          # HabitForm, HabitList, HabitItem
+│   └── player/          # PlayerSettingsPanel
+├── pages/
+│   └── MainPage.tsx     # Main view composition
+└── styles/
+    └── retro-theme.css  # Global design system (CSS variables)
+```
+
+All state is managed via React Context + `localStorage`. No external state library required.
+
+---
+
+## Difficulty Tiers
+
+| Tier        | XP  | Coins |
+|-------------|-----|-------|
+| Easy        | 15  | 5     |
+| Easy-Medium | 30  | 10    |
+| Medium      | 60  | 15    |
+| Medium-Hard | 125 | 20    |
+| Hard        | 250 | 25    |
+
+---
+
+*Built with React 19 + TypeScript + Vite*

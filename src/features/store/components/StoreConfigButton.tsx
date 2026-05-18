@@ -2,20 +2,21 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiSettings } from 'react-icons/fi';
 import StoreConfigModal from './StoreConfigModal';
+import './Store.css';
 
-export const StoreConfigButton = () => {
+const StoreConfigButton = () => {
   const [isConfigOpen, setIsConfigOpen] = useState(false);
 
   return (
     <>
       <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.94 }}
         onClick={() => setIsConfigOpen(true)}
-        className="fixed bottom-24 right-4 p-3 bg-blue-600 text-white rounded-full shadow-lg z-10"
+        className="store-config-btn"
         title="Configurar tienda"
       >
-        <FiSettings size={24} />
+        <FiSettings size={20} />
       </motion.button>
 
       {isConfigOpen && (
